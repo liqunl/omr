@@ -260,6 +260,11 @@ MM_Configuration::initializeRunTimeObjectAlignmentAndCRShift(MM_EnvironmentBase*
 	UDATA shift = (extensions->shouldAllowShiftingCompression) ? LOW_MEMORY_HEAP_CEILING_SHIFT : 0;
 	bool canChangeShift = true;
 
+	if (!extensions->isMetronomeGC()) {
+		extensions->shouldForceSpecifiedShiftingCompression = true;
+		extensions->forcedShiftingCompressionAmount = 3;
+	}
+
 	if (extensions->shouldForceSpecifiedShiftingCompression) {
 		shift = extensions->forcedShiftingCompressionAmount;
 		canChangeShift = false;
